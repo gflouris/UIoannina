@@ -27,7 +27,11 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/Framework/interface/ESHandle.h"
 
-
+#include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambPhContainer.h"
+#include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambPhDigi.h"
+#include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambThContainer.h"
+#include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambThDigi.h"
+#include "DataFormats/L1DTTrackFinder/interface/L1MuDTTrackContainer.h"
 
 
 // ROOT output stuff
@@ -40,6 +44,7 @@
 //local  data formats
 
 #include "UIoannina/TrUpS/interface/L1AnalysisGMT.h"
+#include "UIoannina/TrUpS/interface/L1AnalysisDTTF.h"
 
 
 //
@@ -56,15 +61,16 @@ private:
   virtual void beginJob(void) ;
   virtual void analyze(const edm::Event&, const edm::EventSetup&);
   virtual void analyzeGMT(const edm::Event&);
+  virtual void analyzeDTTF(const edm::Event&);
   virtual void endJob();
 
 public:
 
   TrUpS::L1AnalysisGMT*     		l1gmt;
-
   TrUpS::L1AnalysisGMTDataFormat*        l1gmt_data;
 
-
+  TrUpS::L1AnalysisDTTF*     		l1dttf;
+  TrUpS::L1AnalysisDTTFDataFormat*        l1dttf_data;
 private:
 
   // output file
@@ -82,15 +88,18 @@ private:
 L1TreeProducer::L1TreeProducer(const edm::ParameterSet& iConfig)
 {
 
+
  
   l1gmt      	= new  TrUpS::L1AnalysisGMT();
-
   l1gmt_data	     = l1gmt->getData();
 
+  l1dttf      	=   new  TrUpS::L1AnalysisDTTF();
+  l1dttf_data	     = l1dttf->getData();
 
   // set up output
   tree_=fs_->make<TTree>("L1Tree", "L1Tree");
-  tree_->Branch("GMT",        "TrUpS::L1AnalysisGMTDataFormat",       	    &l1gmt_data,             32000, 3);
+  tree_->Branch("GMT",         "TrUpS::L1AnalysisGMTDataFormat",       	    &l1gmt_data,             32000, 3);
+  tree_->Branch("DTTF",        "TrUpS::L1AnalysisDTTFDataFormat",       	    &l1dttf_data,             32000, 3);
 
 
 
@@ -114,9 +123,9 @@ L1TreeProducer::~L1TreeProducer()
 void L1TreeProducer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
- // reco->Reset();
- // reco->SetReco(iEvent,iSetup);
+
   analyzeGMT(iEvent);
+  analyzeDTTF(iEvent);
   tree_->Fill();
 
 }
@@ -129,6 +138,52 @@ void L1TreeProducer::analyzeGMT(const edm::Event& iEvent)
     L1MuGMTReadoutCollection const* gmtrc = gmtrc_handle.product();
 
     l1gmt->SetGMT(gmtrc);
+
+
+}
+
+void L1TreeProducer::analyzeDTTF(const edm::Event& iEvent)
+{
+  l1dttf->Reset();
+
+edm::InputTag dttfSource_("dttfDigis");
+unsigned int max = 50;
+  edm::Handle<L1MuDTChambPhContainer > myL1MuDTChambPhContainer;  
+  iEvent.getByLabel("dttfDigis",myL1MuDTChambPhContainer);
+  if (!myL1MuDTChambPhContainer.isValid()) {
+    edm::LogInfo("L1Prompt") << "can't find L1MuDTChambPhContainer with label " << dttfSource_.label() ;   
+    }
+  else l1dttf->SetDTPH(myL1MuDTChambPhContainer, max);
+
+  edm::Handle<L1MuDTChambThContainer > myL1MuDTChambThContainer;  
+  iEvent.getByLabel("dttfDigis",myL1MuDTChambThContainer);
+  if (!myL1MuDTChambThContainer.isValid()) {
+    edm::LogInfo("L1Prompt") << "can't find L1MuDTChambThContainer with label " << dttfSource_.label() ;
+    edm::LogInfo("L1Prompt") << "if this fails try to add DATA to the process name." ;   
+    }
+  else l1dttf->SetDTTH(myL1MuDTChambThContainer, max);
+
+
+  edm::Handle<L1MuDTTrackContainer > myL1MuDTTrackContainer;
+  std::string trstring;
+  trstring = dttfSource_.label()+":"+"DATA"+":"+dttfSource_.process();
+  edm::InputTag trInputTag(trstring);
+  iEvent.getByLabel(trInputTag,myL1MuDTTrackContainer);
+  if (myL1MuDTTrackContainer.isValid()) {
+    l1dttf->SetDTTR(myL1MuDTTrackContainer, max);
+  }
+  else {
+    trstring = dttfSource_.label()+":"+"DTTF"+":"+dttfSource_.process();
+    edm::InputTag trInputTag(trstring);
+    iEvent.getByLabel(trInputTag,myL1MuDTTrackContainer);
+    if (myL1MuDTTrackContainer.isValid()) {
+      l1dttf->SetDTTR(myL1MuDTTrackContainer, max);
+    }
+    else {
+      edm::LogInfo("L1Prompt") << "can't find L1MuDTTrackContainer " << dttfSource_.label();
+    }
+  }
+
 
 
 }
