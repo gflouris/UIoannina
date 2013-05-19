@@ -40,13 +40,15 @@ process.source = cms.Source ("PoolSource",
 
 
 #############L1 Trigger Block##################
-process.load("UserCode.L1TriggerDPG.l1Ntuple_cfg")
-process.load("UserCode.L1TriggerDPG.l1NtupleProducer_cfi")
+#process.load("UserCode.L1TriggerDPG.l1Ntuple_cfg")
+#process.load("UserCode.L1TriggerDPG.l1NtupleProducer_cfi")
 process.load("Configuration.StandardSequences.RawToDigi_Data_cff")
+process.load("UIoannina.TrUpS.L1Producer_cfi")
 
 process.p = cms.Path(
     process.RawToDigi
-    +process.l1NtupleProducer
+    +process.L1TProducer    
+#+process.l1NtupleProducer
 )
 
 process.load("UIoannina.TrUpS.GENProducer_cfi")
