@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from UIoannina.TrUpS.Ntuple_cfg import *
+from UIoannina.TrUpS.Ntuple_MC_cfg import *
 
 # job options
 
