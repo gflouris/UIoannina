@@ -3,5 +3,6 @@
 <class name="TrUpS::GenMuonDataFormat"/>
 <class name="TrUpS::PATMuonDataFormat"/>
 <class name="TrUpS::L1AnalysisGMTDataFormat"/>
+<class name="TrUpS::L1AnalysisDTTFDataFormat"/>
 <class name="TrUpS::EventRunDataFormat"/>
 </lcgdict>
