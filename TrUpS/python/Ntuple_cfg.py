@@ -32,7 +32,7 @@ process.load("UIoannina.TrUpS.EVRProducer_cfi")
 
 process.default = cms.Path(
     process.EVRTProducer
-   +process.L1TProducer
+#   +process.L1TProducer
    +process.RECOTProducer
    +process.GENTProducer
 )
