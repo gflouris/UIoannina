@@ -38,7 +38,7 @@ void write_xml(std::map<string, string> map_data, ptree& data);
 
 void init_map(std::map<string, string> &	map_data);
 
-string to_string(int Number){
+string my_to_string(int Number){
 string Result;         
 ostringstream convert; 
 convert << Number;     
@@ -46,7 +46,7 @@ Result = convert.str();
 return Result;
 }
 
-string to_string(double Number){
+string my_to_string(double Number){
 string Result;
 ostringstream convert;  
 convert << Number;      
@@ -199,13 +199,13 @@ boost::property_tree::ptree pt;
    
        
     //setNode1.add_child("muon",1);
-    map_data["tremu_pt"] = to_string(dttf_ph_pt);
-    map_data["gen_pt"] = to_string(genpt);
-    map_data["gen_phi"] = to_string(genphi);
-    map_data["gen_eta"] = to_string(geneta);
-    map_data["gmt_pt"] = to_string(gmtpt);
-    map_data["gmt_phi"] = to_string(gmtphi);
-    map_data["gmt_eta"] = to_string(gmteta);
+    map_data["tremu_pt"] = my_to_string(dttf_ph_pt);
+    map_data["gen_pt"] = my_to_string(genpt);
+    map_data["gen_phi"] = my_to_string(genphi);
+    map_data["gen_eta"] = my_to_string(geneta);
+    map_data["gmt_pt"] = my_to_string(gmtpt);
+    map_data["gmt_phi"] = my_to_string(gmtphi);
+    map_data["gmt_eta"] = my_to_string(gmteta);
     
     fieldNode_gen.add("pt",map_data["gen_pt"]);
     fieldNode_gen.add("eta",map_data["gen_eta"]);    
@@ -230,16 +230,16 @@ boost::property_tree::ptree pt;
 	  for(int l=0; l<l1c.phSize; l++){
 	      if(l1c.phBx[l]==1){
 		
-	      string station = to_string(l1c.phSt[l]);
+	      string station = my_to_string(l1c.phSt[l]);
 
-	      map_data["phemu_ang_st"+station] = to_string(l1c.phAng[l]);
+	      map_data["phemu_ang_st"+station] = my_to_string(l1c.phAng[l]);
 	      if(l1c.phSt[l] != 3) {
-		map_data["phemu_b_ang_st"+station] = to_string(l1c.phBandAng[l]);
+		map_data["phemu_b_ang_st"+station] = my_to_string(l1c.phBandAng[l]);
 		  fieldNode_ph.add("b_ang_st"+station,map_data["phemu_b_ang_st"+station]);
 	      }
-	      map_data["phemu_code_st"+station] = to_string(l1c.phCode[l]);
-	      map_data["phemu_wh_st"+station] = to_string(l1c.phWh[l]);
-	      map_data["phemu_se_st"+station] = to_string(l1c.phSe[l]);
+	      map_data["phemu_code_st"+station] = my_to_string(l1c.phCode[l]);
+	      map_data["phemu_wh_st"+station] = my_to_string(l1c.phWh[l]);
+	      map_data["phemu_se_st"+station] = my_to_string(l1c.phSe[l]);
   
 
 	      
@@ -249,10 +249,10 @@ boost::property_tree::ptree pt;
 	 
 	  }
 	  	  for(int l=0; l<4; l++){
-		    fieldNode_ph.add("ang_st"+to_string(l+1),map_data["phemu_ang_st"+to_string(l+1)]);
-		    fieldNode_ph.add("wh_st"+to_string(l+1),map_data["phemu_wh_st"+to_string(l+1)]);    
-		    fieldNode_ph.add("se_st"+to_string(l+1),map_data["phemu_se_st"+to_string(l+1)]);
-		    fieldNode_ph.add("code_st"+to_string(l+1),map_data["phemu_code_st"+to_string(l+1)]);
+		    fieldNode_ph.add("ang_st"+my_to_string(l+1),map_data["phemu_ang_st"+to_string(l+1)]);
+		    fieldNode_ph.add("wh_st"+my_to_string(l+1),map_data["phemu_wh_st"+to_string(l+1)]);    
+		    fieldNode_ph.add("se_st"+my_to_string(l+1),map_data["phemu_se_st"+to_string(l+1)]);
+		    fieldNode_ph.add("code_st"+my_to_string(l+1),map_data["phemu_code_st"+to_string(l+1)]);
 
 		  }
 	   fieldNode_ph.put("<xmlattr>.type", "ph_emu");
@@ -261,18 +261,18 @@ boost::property_tree::ptree pt;
 	  int phcount = 0;
 	     for(int l=0; l<l1c.thSize; l++){
  		  if(l1c.thBx[l]==1) {
-		   	      string station = to_string(l1c.thSt[l]);
+		   	      string station = my_to_string(l1c.thSt[l]);
 
 			      stringstream s1; s1<<l1c.thTheta[l][0]<<l1c.thTheta[l][1]<<l1c.thTheta[l][2]<<l1c.thTheta[l][3]<<l1c.thTheta[l][4]<<l1c.thTheta[l][5]<<l1c.thTheta[l][6];
 		      	      map_data["themu_hits_st"+station] = s1.str();
-			      map_data["themu_wh_st"+station] = to_string(l1c.thWh[l]);
-			      map_data["themu_se_st"+station] = to_string(l1c.thSe[l]);
+			      map_data["themu_wh_st"+station] = my_to_string(l1c.thWh[l]);
+			      map_data["themu_se_st"+station] = my_to_string(l1c.thSe[l]);
 		}
 	      }
       for(int l=0; l<3; l++){
-		      fieldNode_th.add("hits_st"+to_string(l+1),map_data["themu_hits_st"+to_string(l+1)]);
-			      fieldNode_th.add("wh_st"+to_string(l+1),map_data["themu_wh_st"+to_string(l+1)]);    
-			      fieldNode_th.add("se_st"+to_string(l+1),map_data["themu_se_st"+to_string(l+1)]);
+		      fieldNode_th.add("hits_st"+my_to_string(l+1),map_data["themu_hits_st"+to_string(l+1)]);
+			      fieldNode_th.add("wh_st"+my_to_string(l+1),map_data["themu_wh_st"+to_string(l+1)]);    
+			      fieldNode_th.add("se_st"+my_to_string(l+1),map_data["themu_se_st"+to_string(l+1)]);
       }
 	    fieldNode_th.put("<xmlattr>.type", "th_emu");
 	    eventNode.add_child("info", fieldNode_th);
