@@ -26,6 +26,8 @@ void TrUpS::L1AnalysisDTTF::SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L
     {        
       if((unsigned int) iphtr>maxDTPH-1) continue;
       dttf_.phBx.push_back     (  DTPhDigiItr->bxNum() - DTPhDigiItr->Ts2Tag()+1 );
+      dttf_.phBxRAW.push_back     (  DTPhDigiItr->bxNum() );
+      dttf_.phTs2Tag.push_back     ( DTPhDigiItr->Ts2Tag() );
       dttf_.phWh.push_back     (  DTPhDigiItr->whNum() );
       dttf_.phSe.push_back     (  DTPhDigiItr->scNum() );
       dttf_.phSt.push_back     (  DTPhDigiItr->stNum() );
@@ -115,9 +117,12 @@ void TrUpS::L1AnalysisDTTF::SetDTTR(const edm::Handle<L1MuDTTrackContainer > L1M
 	dttf_.trSc.push_back(  i->scNum() );
 	unsigned int addresses=0;
 	for (int KK = 0; KK<4; KK++){
-	  addresses|=((unsigned int)(i->stNum(KK+1))<<(KK*4));
+	  //addresses|=((unsigned int)(i->stNum(KK+1))<<(KK*4));
+	  //std::cout<<i->stNum(KK+1)<<std::endl;
+	  addresses=i->stNum(KK+1);
+	//}
+	  dttf_.trAddress.push_back(addresses);
 	}
-	dttf_.trAddress.push_back(addresses);
 	idttr++;
   }
  

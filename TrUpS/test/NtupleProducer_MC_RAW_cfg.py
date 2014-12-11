@@ -4,7 +4,7 @@ from UIoannina.TrUpS.Ntuple_MC_cfg import *
 
 # job options
 
-process.GlobalTag.globaltag = 'START52_V9::All'
+#process.GlobalTag.globaltag = 'START52_V9::All'
 
 #process.options = cms.untracked.PSet(
 #SkipEvent = cms.untracked.vstring('ProductNotFound')
@@ -27,7 +27,9 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
 readFiles = cms.untracked.vstring(
 #'file:///mnt/storage/flouris/FC238AA2-278A-E111-BB8E-0030487F92B1.root'
- 'file:///mnt/storage/flouris/00D8FE5F-B198-E111-9C42-0025904B1448.root'
+ 'file://../../../SingleMuPt100_500events.root'
+  #'file://../../../SingleMuPt100_cfi_py_GEN_SIM_DIGI_L1_DIGI2RAW.root'
+#  'file:///afs/cern.ch/user/n/nloukas/public/SingleMuPt100_20000.root'
 )
 
 secFiles = cms.untracked.vstring(
@@ -65,6 +67,6 @@ process.schedule = cms.Schedule(
 
 # output file
 process.TFileService = cms.Service("TFileService",
-    fileName = cms.string('Tree_from_RAW.root')
+    fileName = cms.string('Tree_from_RAW_500events_old_LUTS.root')
 )
 

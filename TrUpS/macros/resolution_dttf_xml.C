@@ -109,7 +109,7 @@ float res = 0;
 int count =0;
 int datas_bad = 0;
 
-float genpt,geneta,genphi, gmtpt,gmteta,gmtphi, dttf_ph_pt;
+float genpt=0,geneta=0,genphi=0, gmtpt=0,gmteta=0,gmtphi=0, dttf_ph_pt=0, tr_add_1 = 0, tr_add_2 = 0, tr_add_3 = 0, tr_add_4 = 0, dttf_phi = 0, dttf_qual = 0;
 
 
 
@@ -131,7 +131,8 @@ boost::property_tree::ptree fieldNode_ph;
 
 boost::property_tree::ptree pt;
    
-
+cout<<"Analysing tree with: "<<nentries<<" events"<<endl;
+int ts2tag = 0, bxxx = 0;
   for(int i=0; i<nentries; i++){
 
     l1c.GetEntry(i);
@@ -139,21 +140,42 @@ boost::property_tree::ptree pt;
     
       int good_m_k[10] = {0,0,0,0,0,0,0,0,0,0};
       int good_m_kk=0;
+int deb_good_m_kk=0;
 	
       for(int k=0; k<l1c.phSize; k++){
-		if(l1c.phBx[k]==1) {good_m_k[k] = 1; good_m_kk++;}
+//		if(l1c.phBxRAW[k]==0 && l1c.phTs2Tag[k]==0 ) {good_m_k[k] = 1; good_m_kk++; ts2tag++;}
+		if(l1c.phBx[k]==1 && l1c.phTs2Tag[k]==0 && l1c.phWh[k]==0 && l1c.phSe[k]==0) {   good_m_kk++;}
+     	 
       }
-  
-    if(good_m_kk<4) continue; ///Hits at all stations
 
+
+  if(good_m_kk!=4) continue; ///Hits at all stations
+  if(good_m_kk>4) cerr<<i<<"  More than four"<<endl;
+    //if(count==179 || count==328 || count==355) {
+//		cout<<"Bad event "<<i<<"  "<<good_m_kk<<"  "<<endl;
+ //               cout<<"1c.phBxRAW[k]+<<l1c.Ts2Tag[k]<<<l1c.phSize<<<<l1c.phWh[k]<<<<l1c.phSt[k]<<<<l1c.phSe[k]<<<<l1c.phAng[k]<<<<l1c.phBandAng[k]<<<<l1c.phCode[k]"<<endl;
+
+//	      for(int k=0; k<l1c.phSize; k++){
+ //               cout<<l1c.phBxRAW[k]<<"\t"<<l1c.phTs2Tag[k]<<"\t"<<l1c.phSize<<"\t"<<l1c.phWh[k]<<"\t"<<l1c.phSt[k]<<"\t"<<l1c.phSe[k]<<"\t"<<l1c.phAng[k]<<"\t"<<l1c.phBandAng[k]<<"\t"<<l1c.phCode[k]<<endl;
+
+//cout<<endl<<l1c.phBxRAW[k]<<endl;
+  //    }
+//}
     	
     ff = 0;
 
     for(int l=0; l<l1c.trSize; l++){
-        if(l1c.trBx[l]==1)  {
+        if(l1c.trBx[l]==1 && l1c.trTag[l]==0)  {
 	  int ptpck = l1c.trPtPck[l];
-	  if (ptpck==0) continue;
+	  //if (ptpck==0) continue;
+//	  if(l1c.trTag[l]!=0) cerr<<"tr tag non zero"<<endl;
 	  dttf_ph_pt = (PCKtoPHYS[ptpck]);
+	  tr_add_1 = l1c.trAddress[0];
+          tr_add_2 = l1c.trAddress[1];
+          tr_add_3 = l1c.trAddress[2];
+          tr_add_4 = l1c.trAddress[3];
+          dttf_qual = l1c.trQual[l];
+	  dttf_phi = l1c.trPhiPck[l];
 	}
      }
     
@@ -163,17 +185,17 @@ boost::property_tree::ptree pt;
 
 
      for(int l=0; l<l1c.gmt_muons; l++){
-	if(l1c.Bx[l]!=0){
+	if(l1c.Bx[l]==0){
 	 gmtpt = l1c.Pt[l];
 	 gmtphi = l1c.Phi[l];
 	 gmteta = l1c.Eta[l];}
       else	ff++;
      } 
-  if(ff!=1) continue;
+  if(ff!=0) continue;
 
  // if(upgrade_plots){
   
-  if(count<1700){
+  if(count<201700){
     
     
 
@@ -196,10 +218,14 @@ boost::property_tree::ptree pt;
     eventNode.put("<xmlattr>.id", count);
 
 
-   
-       
-    //setNode1.add_child("muon",1);
     map_data["tremu_pt"] = my_to_string(dttf_ph_pt);
+    map_data["tremu_tradd_st1"] = my_to_string(tr_add_1);
+    map_data["tremu_tradd_st2"] = my_to_string(tr_add_2);
+    map_data["tremu_tradd_st3"] = my_to_string(tr_add_3);
+    map_data["tremu_tradd_st4"] = my_to_string(tr_add_4);
+    map_data["tremu_phi"] = my_to_string(dttf_phi);
+    map_data["tremu_qual"] = my_to_string(dttf_qual);
+
     map_data["gen_pt"] = my_to_string(genpt);
     map_data["gen_phi"] = my_to_string(genphi);
     map_data["gen_eta"] = my_to_string(geneta);
@@ -221,15 +247,28 @@ boost::property_tree::ptree pt;
     eventNode.add_child("info", fieldNode_gmt);
 
     fieldNode_tr.add("pt",map_data["tremu_pt"]);
+    fieldNode_tr.add("tradd_st1",map_data["tremu_tradd_st1"]);
+    fieldNode_tr.add("tradd_st2",map_data["tremu_tradd_st2"]);
+    fieldNode_tr.add("tradd_st3",map_data["tremu_tradd_st3"]);
+    fieldNode_tr.add("tradd_st4",map_data["tremu_tradd_st4"]);
+    fieldNode_tr.add("phi",map_data["tremu_phi"]);
+    fieldNode_tr.add("qual",map_data["tremu_qual"]);
+    
     fieldNode_tr.put("<xmlattr>.type", "tr_emu");
     eventNode.add_child("info", fieldNode_tr);
 
+bool good_event = true;
+          //for(int l=0; l<l1c.phSize; l++){
+
+          //      if(l1c.phWh[l]!=0 || l1c.phSe[l]!=0) good_event = false;
+          //}
     
-    
-    if(true){     
+    if(good_event){     
 	  for(int l=0; l<l1c.phSize; l++){
-	      if(l1c.phBx[l]==1){
-		
+	    //  if(l1c.phBx[l]==1){
+            if(l1c.phBxRAW[l]==0 && l1c.phTs2Tag[l]==0 && l1c.phWh[l]==0 && l1c.phSe[l]==0 ) {
+	       if(l1c.phTs2Tag[l]!=0) cerr<<i<<" Mixed up event"<<endl;
+		if(l1c.phBxRAW[l]!=0) cerr<<i<<"Wrong bx"<<endl;
 	      string station = my_to_string(l1c.phSt[l]);
 
 	      map_data["phemu_ang_st"+station] = my_to_string(l1c.phAng[l]);
@@ -240,7 +279,9 @@ boost::property_tree::ptree pt;
 	      map_data["phemu_code_st"+station] = my_to_string(l1c.phCode[l]);
 	      map_data["phemu_wh_st"+station] = my_to_string(l1c.phWh[l]);
 	      map_data["phemu_se_st"+station] = my_to_string(l1c.phSe[l]);
-  
+ 	
+		if(l1c.phWh[l]!=0) cerr<<i<<" Diff wheel"<<endl;
+		if(l1c.phSe[l]!=0) cerr<<i<<" Diff Sec"<<endl; 
 
 	      
 	      }
@@ -282,7 +323,14 @@ boost::property_tree::ptree pt;
 
 
 
-	    fieldNode_dttf.add("pt","-1");
+	    fieldNode_dttf.add("pt","-999999");
+            fieldNode_dttf.add("tradd_st1","-999999");
+            fieldNode_dttf.add("tradd_st2","-999999");
+            fieldNode_dttf.add("tradd_st3","-999999");
+            fieldNode_dttf.add("tradd_st4","-999999");
+            fieldNode_dttf.add("phi","-999999");
+            fieldNode_dttf.add("qual","-999999");
+
 	    fieldNode_dttf.put("<xmlattr>.type", "DTTF");
 	    eventNode.add_child("info", fieldNode_dttf);
 
@@ -302,10 +350,10 @@ boost::property_tree::ptree pt;
 	
   pt.add_child("Data", rootNode);
 	
-	
-cout<<datas_bad<<endl;	
-cout<<ff<<endl;
-
+cout<<"count = "<<count<<endl;	
+cout<<"bxx = "<<bxxx<<endl;	
+cout<<"ts2tag = "<<ts2tag<<endl;
+cout<<"ff = "<<ff<<endl;
 write_xml("./output.xml", pt, std::locale(), xml_writer_settings<char>(' ', 4));
 
 return 0;
@@ -385,6 +433,13 @@ return 0;
         map_data["gmt_phi"] = "-999999";
  
         map_data["tremu_pt"] = "-999999";
+        map_data["tremu_tradd_st1"] = "-999999";
+        map_data["tremu_tradd_st2"] = "-999999";
+        map_data["tremu_tradd_st3"] = "-999999";
+        map_data["tremu_tradd_st4"] = "-999999";
+        map_data["tremu_phi"] = "-999999";
+        map_data["tremu_qual"] = "-999999";
+
 
         map_data["phemu_ang_st1"] = "-999999";
         map_data["phemu_b_ang_st1"] = "-999999";
@@ -419,6 +474,13 @@ return 0;
         map_data["themu_wh_st3"] = "-999999";
         map_data["themu_se_st3"] = "-999999";
 
-        map_data["dttf_pt"]      = "-1";
+        map_data["dttf_pt"]      = "-999999";
+        map_data["dttf_tradd_st1"] = "-999999";
+        map_data["dttf_tradd_st2"] = "-999999";
+        map_data["dttf_tradd_st3"] = "-999999";
+        map_data["dttf_tradd_st4"] = "-999999";
+        map_data["dttf_phi"] = "-999999";
+        map_data["dttf_qual"] = "-999999";
+
  
  }	

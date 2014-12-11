@@ -48,8 +48,11 @@ public :
    vector<int>     phCode;
    vector<float>   phX;
    vector<float>   phY;
-   vector<int>     phBxCnt;
-   vector<int>     phTsTag;
+  // vector<int>     phBxCnt;
+   //vector<int>     phTsTag;
+   vector<int>    phBxRAW;
+   vector<int>    phTs2Tag;
+
    Int_t           thSize;
    vector<int>     thBx;
    vector<int>     thWh;
@@ -100,8 +103,10 @@ public :
    TBranch        *b_DTTF_phCode;   //!
    TBranch        *b_DTTF_phX;   //!
    TBranch        *b_DTTF_phY;   //!
-   TBranch        *b_DTTF_phBxCnt;   //!
-   TBranch        *b_DTTF_phTsTag;   //!
+// TBranch        *b_DTTF_phBxCnt;   //!
+// TBranch        *b_DTTF_phTsTag;   //!
+   TBranch        *b_DTTF_phBxRAW;   //!
+   TBranch        *b_DTTF_phTs2Tag;  //!
    TBranch        *b_DTTF_thSize;   //!
    TBranch        *b_DTTF_thBx;   //!
    TBranch        *b_DTTF_thWh;   //!
@@ -222,8 +227,10 @@ void L1TreeClass::Init(TTree *tree)
    fChain->SetBranchAddress("phCode", &phCode, &b_DTTF_phCode);
    fChain->SetBranchAddress("phX", &phX, &b_DTTF_phX);
    fChain->SetBranchAddress("phY", &phY, &b_DTTF_phY);
-   fChain->SetBranchAddress("phBxCnt", &phBxCnt, &b_DTTF_phBxCnt);
-   fChain->SetBranchAddress("phTsTag", &phTsTag, &b_DTTF_phTsTag);
+//   fChain->SetBranchAddress("phBxCnt", &phBxCnt, &b_DTTF_phBxCnt);
+//   fChain->SetBranchAddress("phTsTag", &phTsTag, &b_DTTF_phTsTag);
+   fChain->SetBranchAddress("phBxRAW", &phBxRAW, &b_DTTF_phBxRAW);
+   fChain->SetBranchAddress("phTs2Tag", &phTs2Tag, &b_DTTF_phTs2Tag);
    fChain->SetBranchAddress("thSize", &thSize, &b_DTTF_thSize);
    fChain->SetBranchAddress("thBx", &thBx, &b_DTTF_thBx);
    fChain->SetBranchAddress("thWh", &thWh, &b_DTTF_thWh);

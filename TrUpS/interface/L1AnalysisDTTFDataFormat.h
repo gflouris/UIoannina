@@ -35,7 +35,9 @@ namespace TrUpS
     phCode.clear(); 
     phX.clear();
     phY.clear();
-        
+    phBxRAW.clear();
+    phTs2Tag.clear();
+    
     
     thSize = 0;
      
@@ -81,6 +83,9 @@ namespace TrUpS
     std::vector<int>    phCode; 
     std::vector<float>  phX;
     std::vector<float>  phY;
+    std::vector<int>  phBxRAW;
+    std::vector<int>  phTs2Tag;
+
     
     int thSize;
     std::vector<int>   thBx;
