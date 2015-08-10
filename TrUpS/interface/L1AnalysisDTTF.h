@@ -11,6 +11,7 @@
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambPhContainer.h"
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambThContainer.h"
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTTrackContainer.h"
+#include "DataFormats/L1BMTrackFinder/interface/L1MuBMTrackContainer.h"
 #include "DataFormats/Common/interface/Handle.h"
 
 #include <vector>
@@ -28,6 +29,7 @@ namespace TrUpS
     void SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L1MuDTChambPhContainer, unsigned int maxDTPH);
     void SetDTTH(const edm::Handle<L1MuDTChambThContainer > L1MuDTChambThContainer, unsigned int maxDTTH);
     void SetDTTR(const edm::Handle<L1MuDTTrackContainer >   L1MuDTTrackContainer,   unsigned int maxDTTR);
+    void SetMBTR(const edm::Handle<L1MuBMTrackContainer >   L1MuBMTrackContainer,   unsigned int maxMBTR);
     void Reset() {dttf_.Reset();}
     L1AnalysisDTTFDataFormat * getData() {return &dttf_;}
 

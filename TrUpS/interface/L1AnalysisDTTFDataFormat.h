@@ -68,6 +68,21 @@ namespace TrUpS
 
     thTheta.Clear();
     thCode.Clear();
+    
+    trmbSize = 0;
+    trmbBx.clear(); 
+    trmbTag.clear();
+    trmbQual.clear(); 
+    trmbPtPck.clear();
+    trmbPhiPck.clear(); 
+    trmbEtaPck.clear(); 
+    trmbPhiGlob.clear(); 
+    trmbChPck.clear();
+    trmbWh.clear(); 
+    trmbSc.clear();  
+    trmbAddress.clear();
+
+    
     }
       
     // ---- L1AnalysisDTTFDataFormat information.
@@ -113,6 +128,21 @@ namespace TrUpS
     std::vector<int>   trWh; 
     std::vector<int>   trSc;  
     std::vector<unsigned int> trAddress;
+    
+    int trmbSize;
+    std::vector<int>   trmbBx; 
+    std::vector<int>   trmbTag;
+    std::vector<int>   trmbQual; 
+    std::vector<int>   trmbPtPck;
+    std::vector<int>   trmbPhiPck; 
+    std::vector<int>   trmbEtaPck; 
+    std::vector<double>trmbPhiGlob; 
+    std::vector<int>   trmbChPck;
+    std::vector<int>   trmbWh; 
+    std::vector<int>   trmbSc;  
+    std::vector<unsigned int> trmbAddress;
+
+    
   }; 
 } 
 #endif

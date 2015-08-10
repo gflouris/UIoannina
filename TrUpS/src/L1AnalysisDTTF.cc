@@ -1,6 +1,7 @@
 #include "UIoannina/TrUpS/interface/L1AnalysisDTTF.h"
 
 
+
 TrUpS::L1AnalysisDTTF::L1AnalysisDTTF()
 {	     
 }
@@ -14,7 +15,7 @@ TrUpS::L1AnalysisDTTF::~L1AnalysisDTTF()
 void TrUpS::L1AnalysisDTTF::SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L1MuDTChambPhContainer, unsigned int maxDTPH)
 {
    
-   L1MuDTChambPhContainer::Phi_Container *PhContainer = L1MuDTChambPhContainer->getContainer();
+   L1MuDTChambPhContainer::Phi_Container const *PhContainer = L1MuDTChambPhContainer->getContainer();
     
    dttf_.phSize = PhContainer->size();
    int iphtr=0;
@@ -51,7 +52,7 @@ void TrUpS::L1AnalysisDTTF::SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L
 void TrUpS::L1AnalysisDTTF::SetDTTH(const edm::Handle<L1MuDTChambThContainer > L1MuDTChambThContainer, unsigned int maxDTTH)
 {
    
-   L1MuDTChambThContainer::The_Container* ThContainer = L1MuDTChambThContainer->getContainer();
+   L1MuDTChambThContainer::The_Container const *ThContainer = L1MuDTChambThContainer->getContainer();
 
    int ithtr=0;
    dttf_.thSize = ThContainer->size();
@@ -90,7 +91,7 @@ void TrUpS::L1AnalysisDTTF::SetDTTH(const edm::Handle<L1MuDTChambThContainer > L
 void TrUpS::L1AnalysisDTTF::SetDTTR(const edm::Handle<L1MuDTTrackContainer > L1MuDTTrackContainer, unsigned int maxDTTR)
 {
   double pig=acos(-1);
-  L1MuDTTrackContainer::TrackContainer *tr =  L1MuDTTrackContainer->getContainer();
+  L1MuDTTrackContainer::TrackContainer const *tr =  L1MuDTTrackContainer->getContainer();
   int idttr = 0 ;
   dttf_.trSize = tr->size();
   for ( L1MuDTTrackContainer::TrackContainer::const_iterator i 
@@ -100,11 +101,11 @@ void TrUpS::L1AnalysisDTTF::SetDTTR(const edm::Handle<L1MuDTTrackContainer > L1M
 	dttf_.trTag.push_back(  i->TrkTag() );  
 	dttf_.trQual.push_back(  i->quality_packed() ); 
 	dttf_.trPtPck.push_back(  i->pt_packed() );
-	dttf_.trPtVal.push_back(  i->ptValue() );
+	//dttf_.trPtVal.push_back(  i->ptValue() );
 	dttf_.trPhiPck.push_back(  i->phi_packed() ); 
-	dttf_.trPhiVal.push_back(  i->phiValue() ); 
+//	dttf_.trPhiVal.push_back(  i->phiValue() ); 
 	dttf_.trEtaPck.push_back(  i->eta_packed() );
-	dttf_.trEtaVal.push_back(  i->etaValue() );
+//	dttf_.trEtaVal.push_back(  i->etaValue() );
 
         int phi_local = i->phi_packed();//range: 0 < phi_local < 31 
         if(phi_local > 15) phi_local -= 32; //range: -16 < phi_local < 15
@@ -123,6 +124,39 @@ void TrUpS::L1AnalysisDTTF::SetDTTR(const edm::Handle<L1MuDTTrackContainer > L1M
 	//}
 	  dttf_.trAddress.push_back(addresses);
 	}
+	idttr++;
+  }
+ 
+}  
+
+
+void TrUpS::L1AnalysisDTTF::SetMBTR(const edm::Handle<L1MuBMTrackContainer > L1MuBMTrackContainer, unsigned int maxMBTR)
+{
+  double pig=acos(-1);
+  L1MuBMTrackContainer::TrackContainer const *tr =  L1MuBMTrackContainer->getContainer();
+  int idttr = 0 ;
+  dttf_.trmbSize = tr->size();
+  for ( L1MuBMTrackContainer::TrackContainer::const_iterator i 
+	  = tr->begin(); i != tr->end(); ++i ) {
+        if((unsigned int)idttr>maxMBTR-1) continue;	
+	dttf_.trmbBx.push_back(  i->bx()+1 );  
+	dttf_.trmbTag.push_back(  i->TrkTag() );  
+	dttf_.trmbQual.push_back(  i->hwQual() ); 
+	dttf_.trmbPtPck.push_back(  i->hwPt() );
+	dttf_.trmbPhiPck.push_back(  i->hwPhi() ); 
+	dttf_.trmbEtaPck.push_back(  i->hwEta() );
+	
+        int phi_local = i->hwPhi();//range: 0 < phi_local < 31 
+        if(phi_local > 15) phi_local -= 32; //range: -16 < phi_local < 15
+        double phi_global = (phi_local*(pig/72.))+((pig/6.)*i->scNum());// + 12*i->scNum(); //range: -16 < phi_global < 147
+        if(phi_global < 0) phi_global+=2*pig; //range: 0 < phi_global < 147
+        if(phi_global > 2*pig) phi_global-=2*pig; //range: 0 < phi_global < 143
+	dttf_.trmbPhiGlob.push_back(  phi_global );
+	dttf_.trmbChPck.push_back(  i->hwSign() ); 
+	dttf_.trmbWh.push_back(  i->whNum() );
+	dttf_.trmbSc.push_back(  i->scNum() );
+	dttf_.trmbAddress.push_back( i->hwTrackAddress());
+	
 	idttr++;
   }
  

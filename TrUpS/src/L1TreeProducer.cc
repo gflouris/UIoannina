@@ -33,6 +33,7 @@
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambThDigi.h"
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTTrackContainer.h"
 
+#include "DataFormats/L1BMTrackFinder/interface/L1MuBMTrackContainer.h"
 
 // ROOT output stuff
 #include "FWCore/ServiceRegistry/interface/Service.h"
@@ -183,6 +184,30 @@ unsigned int max = 50;
       edm::LogInfo("L1Prompt") << "can't find L1MuDTTrackContainer " << dttfSource_.label();
     }
   }
+  
+  edm::InputTag mbtfSource_("bmtfEmulator");
+
+
+  edm::Handle<L1MuBMTrackContainer > myL1MuMBTrackContainer;
+  std::string mbtrstring;
+  mbtrstring = mbtfSource_.label()+":"+"DATA"+":"+mbtfSource_.process();
+  edm::InputTag mbtrInputTag(mbtrstring);
+  iEvent.getByLabel(mbtrInputTag,myL1MuMBTrackContainer);
+  if (myL1MuMBTrackContainer.isValid()) {
+    l1dttf->SetMBTR(myL1MuMBTrackContainer, max);
+  }
+  else {
+    mbtrstring = mbtfSource_.label()+":"+"BMTF"+":"+mbtfSource_.process();
+    edm::InputTag mbtrInputTag(mbtrstring);
+    iEvent.getByLabel(mbtrInputTag,myL1MuMBTrackContainer);
+    if (myL1MuMBTrackContainer.isValid()) {
+      l1dttf->SetMBTR(myL1MuMBTrackContainer, max);
+    }
+    else {
+      edm::LogInfo("L1Prompt") << "can't find L1MuMBTrackContainer " << mbtfSource_.label();
+    }
+  }
+
 
 
 

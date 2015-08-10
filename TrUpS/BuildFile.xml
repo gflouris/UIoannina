@@ -37,3 +37,5 @@
 <use name="JetMETCorrections/Algorithms"/>
 <use name="PhysicsTools/Utilities"/>
 <use name="HLTrigger/HLTcore"/>
+<use name="DataFormats/L1BMTrackFinder"/>
+

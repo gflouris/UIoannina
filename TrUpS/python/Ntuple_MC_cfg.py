@@ -7,15 +7,15 @@ process = cms.Process("NTUPLE")
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
-process.load('Configuration/StandardSequences/SimL1Emulator_cff')
-process.load("Configuration.StandardSequences.RawToDigi_Data_cff")
-process.load('Configuration.StandardSequences.L1Reco_cff')
-process.load('Configuration.StandardSequences.Reconstruction_cff')
+#process.load('Configuration/StandardSequences/SimL1Emulator_cff')
+#process.load("Configuration.StandardSequences.RawToDigi_Data_cff")
+#process.load('Configuration.StandardSequences.L1Reco_cff')
+#process.load('Configuration.StandardSequences.Reconstruction_cff')
 process.load('Configuration/StandardSequences/EndOfProcess_cff')
-process.load('Configuration.StandardSequences.GeometryIdeal_cff')
-process.load('Configuration/StandardSequences/MagneticField_AutoFromDBCurrent_cff')
-process.load("JetMETCorrections.Configuration.DefaultJEC_cff")
-process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
+#process.load('Configuration.StandardSequences.GeometryIdeal_cff')
+#process.load('Configuration/StandardSequences/MagneticField_AutoFromDBCurrent_cff')
+#process.load("JetMETCorrections.Configuration.DefaultJEC_cff")
+#process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 
 # output file
 process.TFileService = cms.Service("TFileService",
@@ -38,7 +38,7 @@ process.default = cms.Path(
 )
 
 # job options
-process.GlobalTag.globaltag = 'START52_V9::All'
+#process.GlobalTag.globaltag = 'START52_V9::All'
 
 #SkipEvent = cms.untracked.vstring('ProductNotFound')
 
