@@ -1,10 +1,10 @@
-#ifndef __TrUpS_L1AnalysisDTTF_H__
-#define __TrUpS_L1AnalysisDTTF_H__
+#ifndef __TrUpS_L1AnalysisBMTF_H__
+#define __TrUpS_L1AnalysisBMTF_H__
 
 //-------------------------------------------------------------------------------
 // Created 06/01/2010 - A.C. Le Bihan
-// 
-//  
+//
+//
 // Original code : UserCode/L1TriggerDPG/L1NtupleProducer
 //-------------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@
 
 #include <vector>
 #include "TMatrixD.h"
-#include "L1AnalysisDTTFDataFormat.h"
+#include "L1AnalysisBMTFDataFormat.h"
 
 
 #include "DataFormats/Common/interface/Handle.h"
@@ -31,23 +31,24 @@
 
 namespace TrUpS
 {
-  class L1AnalysisDTTF 
+  class L1AnalysisBMTF
   {
   public:
-    L1AnalysisDTTF(edm::ConsumesCollector && ix);
-    ~L1AnalysisDTTF();
-    
+    L1AnalysisBMTF(edm::ConsumesCollector && ix);
+    ~L1AnalysisBMTF();
+
     void SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L1MuDTChambPhContainer, unsigned int maxDTPH);
     void SetDTTH(const edm::Handle<L1MuDTChambThContainer > L1MuDTChambThContainer, unsigned int maxDTTH);
-    void SetDTTR(const edm::Handle<L1MuDTTrackContainer >   L1MuDTTrackContainer,   unsigned int maxDTTR);
-   // void SetMBTR(const edm::Handle<BMTrackContainer >   BMTrackContainer,   unsigned int maxMBTR);
-    void Reset() {dttf_.Reset();}
-    L1AnalysisDTTFDataFormat * getData() {return &dttf_;}
+    void SetMBTR(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx);
+    void SetMBTF(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx);
 
-  private : 
-    L1AnalysisDTTFDataFormat dttf_;
-  }; 
-} 
+    void Reset() {bmtf_.Reset();}
+    L1AnalysisBMTFDataFormat * getData() {return &bmtf_;}
+
+  private :
+    L1AnalysisBMTFDataFormat bmtf_;
+  };
+}
 #endif
 
 

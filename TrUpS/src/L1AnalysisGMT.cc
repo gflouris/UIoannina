@@ -1,7 +1,20 @@
 #include "UIoannina/TrUpS/interface/L1AnalysisGMT.h"
+#include <FWCore/Framework/interface/ConsumesCollector.h>
+#include "DataFormats/Common/interface/Handle.h"
+
+#include <vector>
+#include "TMatrixD.h"
+
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/EDAnalyzer.h"
+
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
 
 
-TrUpS::L1AnalysisGMT::L1AnalysisGMT()
+TrUpS::L1AnalysisGMT::L1AnalysisGMT(edm::ConsumesCollector && ix)
 {
 }
 

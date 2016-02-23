@@ -1,3 +1,8 @@
+
+<export>
+  <lib   name="1"/>
+</export>
+
 <use name="FWCore/Framework"/>
 <use name="FWCore/PluginManager"/>
 <use name="FWCore/ParameterSet"/>
@@ -37,5 +42,5 @@
 <use name="JetMETCorrections/Algorithms"/>
 <use name="PhysicsTools/Utilities"/>
 <use name="HLTrigger/HLTcore"/>
-<use name="DataFormats/L1BMTrackFinder"/>
+<use name="DataFormats/L1TMuon"/>
 

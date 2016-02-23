@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "TMatrixD.h"
-
+#include <string>
 
 namespace TrUpS
 {
@@ -55,19 +55,19 @@ namespace TrUpS
     trTag.clear();
     trQual.clear(); 
     trPtPck.clear();
-    trPtVal.clear();
+    //trPtVal.clear();
     trPhiPck.clear(); 
-    trPhiVal.clear();
+//    trPhiVal.clear();
     trEtaPck.clear(); 
-    trEtaVal.clear();  
+//    trEtaVal.clear();  
     trPhiGlob.clear(); 
     trChPck.clear();
     trWh.clear(); 
     trSc.clear(); 
     trAddress.clear();
 
-    thTheta.Clear();
-    thCode.Clear();
+    thTheta.clear();
+    thCode.clear();
     
     trmbSize = 0;
     trmbBx.clear(); 
@@ -110,19 +110,21 @@ namespace TrUpS
     std::vector<float> thX; 
     std::vector<float> thY; 
     
-    TMatrixD thTheta;
-    TMatrixD thCode; 
-    
+    //TMatrixD thTheta;
+    //TMatrixD thCode; 
+    std::vector<int> thTheta;
+    std::vector<int> thCode;
+
     int trSize;
     std::vector<int>   trBx; 
     std::vector<int>   trTag;
     std::vector<int>   trQual; 
     std::vector<int>   trPtPck;
-    std::vector<float> trPtVal;
+//    std::vector<float> trPtVal;
     std::vector<int>   trPhiPck; 
-    std::vector<float> trPhiVal; 
+//    std::vector<float> trPhiVal; 
     std::vector<int>   trEtaPck; 
-    std::vector<float> trEtaVal; 
+//    std::vector<float> trEtaVal; 
     std::vector<double>trPhiGlob; 
     std::vector<int>   trChPck;
     std::vector<int>   trWh; 

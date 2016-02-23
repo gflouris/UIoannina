@@ -10,13 +10,21 @@
 
 #include "DataFormats/L1GlobalTrigger/interface/L1GlobalTriggerReadoutRecord.h"
 #include "L1AnalysisGMTDataFormat.h"
+#include "DataFormats/Common/interface/Handle.h"
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/EDAnalyzer.h"
+
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
 
 namespace TrUpS
 {
   class L1AnalysisGMT
   {
   public:
-    L1AnalysisGMT();
+    L1AnalysisGMT(edm::ConsumesCollector && ix);
     ~L1AnalysisGMT();
     
     void SetGMT(const L1MuGMTReadoutCollection* gmtrc);	

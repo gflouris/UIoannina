@@ -15,8 +15,9 @@
 #include "FWCore/Framework/interface/ESHandle.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include <FWCore/Framework/interface/LuminosityBlock.h>
+#include <FWCore/Framework/interface/ConsumesCollector.h>
 
-TrUpS::EventRun::EventRun()
+TrUpS::EventRun::EventRun(edm::ConsumesCollector && ix)
 {	     
 }
 

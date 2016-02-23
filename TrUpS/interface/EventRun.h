@@ -26,7 +26,7 @@ namespace TrUpS
   class EventRun 
   {
   public:
-    EventRun();
+    EventRun(edm::ConsumesCollector && ix);
     ~EventRun();
 
     void SetEvr(const edm::Event& , const edm::EventSetup&);

@@ -17,9 +17,14 @@
 #include <FWCore/Framework/interface/LuminosityBlock.h>
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 
+#include <FWCore/ParameterSet/interface/ParameterSet.h>
+#include <FWCore/Framework/interface/ConsumesCollector.h>
 
-TrUpS::GenMuon::GenMuon()
-{	     
+TrUpS::GenMuon::GenMuon(edm::ConsumesCollector && ix)
+{	
+//consumesCollector();     
+// consumes<reco::GenParticleCollection>(iConfig.getParameter<edm::InputTag>("genParticles"));
+ 
 }
 
 
@@ -30,6 +35,7 @@ TrUpS::GenMuon::~GenMuon()
 
 void TrUpS::GenMuon::SetGen(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
+
 edm::Handle<reco::GenParticleCollection> genParticles;
 iEvent.getByLabel("genParticles", genParticles);
 

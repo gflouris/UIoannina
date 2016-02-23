@@ -31,9 +31,10 @@ process.load("UIoannina.TrUpS.L1Producer_cfi")
 process.load("UIoannina.TrUpS.EVRProducer_cfi")
 
 process.default = cms.Path(
+#process.default = cms.Sequence(
     process.EVRTProducer
 #   +process.L1TProducer
-   +process.RECOTProducer
+#   +process.RECOTProducer
    +process.GENTProducer
 )
 

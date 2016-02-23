@@ -29,7 +29,7 @@ namespace TrUpS
   class GenMuon 
   {
   public:
-    GenMuon();
+    GenMuon(edm::ConsumesCollector && ix);
     ~GenMuon();
     
     void SetGen(const edm::Event& , const edm::EventSetup&);
