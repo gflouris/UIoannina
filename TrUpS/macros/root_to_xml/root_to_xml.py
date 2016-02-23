@@ -1,7 +1,7 @@
 #!/usr/bin/python2.6
 # -*- coding: utf-8 -*-
 import os
-from libs.termcolor import colored
+#from libs.termcolor import colored
 from libs.rw_ntuple import *
 import libs.VF
 from libs.Write_txt import *
