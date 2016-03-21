@@ -1,13 +1,6 @@
 #ifndef __TrUpS_L1AnalysisBMTF_H__
 #define __TrUpS_L1AnalysisBMTF_H__
 
-//-------------------------------------------------------------------------------
-// Created 06/01/2010 - A.C. Le Bihan
-//
-//
-// Original code : UserCode/L1TriggerDPG/L1NtupleProducer
-//-------------------------------------------------------------------------------
-
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambPhContainer.h"
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambThContainer.h"
 #include "DataFormats/L1DTTrackFinder/interface/L1MuDTTrackContainer.h"
@@ -39,8 +32,7 @@ namespace TrUpS
 
     void SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L1MuDTChambPhContainer, unsigned int maxDTPH);
     void SetDTTH(const edm::Handle<L1MuDTChambThContainer > L1MuDTChambThContainer, unsigned int maxDTTH);
-    void SetMBTR(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx);
-    void SetMBTF(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx);
+    void SetBMTF(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx);
 
     void Reset() {bmtf_.Reset();}
     L1AnalysisBMTFDataFormat * getData() {return &bmtf_;}

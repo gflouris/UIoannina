@@ -3,9 +3,6 @@
 #include <FWCore/ParameterSet/interface/ParameterSet.h>
 #include "DataFormats/L1TMuon/interface/RegionalMuonCand.h"
 #include <sstream>
-#include <iostream>
-#include <string>     // std::string, std::stoi
-
 
 TrUpS::L1AnalysisBMTF::L1AnalysisBMTF(edm::ConsumesCollector && ix)
 {
@@ -61,9 +58,6 @@ void TrUpS::L1AnalysisBMTF::SetDTTH(const edm::Handle<L1MuDTChambThContainer > L
 
    int ithtr=0;
    bmtf_.thSize = ThContainer->size();
-   //bmtf_.thTheta.ResizeTo(bmtf_.thSize,7);
-//   bmtf_.thCode.ResizeTo(bmtf_.thSize,7);
-
 
    for( L1MuDTChambThContainer::The_Container::const_iterator
 	 DTThDigiItr =  ThContainer->begin() ;
@@ -77,71 +71,25 @@ void TrUpS::L1AnalysisBMTF::SetDTTH(const edm::Handle<L1MuDTChambThContainer > L
       bmtf_.thSe.push_back( DTThDigiItr->scNum() );
       bmtf_.thSt.push_back( DTThDigiItr->stNum() );
       bmtf_.thX.push_back( DTThDigiItr->stNum()+4*(DTThDigiItr->whNum()+2) );
-//	  int xpos = iwh*4+ist+1; ????
       bmtf_.thY.push_back( DTThDigiItr->scNum() );
-	
-	ostringstream  ss1, ss2; 
-	ss1.clear(); ss2.clear();
-        ss1<<"9"; ss2<<"9";
 
+      ostringstream  ss1, ss2; 
+      ss1.clear(); ss2.clear();
+      ss1<<"9"; ss2<<"9";
 
-       if(DTThDigiItr->whNum()<=0) {
-        for(int j=0; j<7; j++){
-       //for ( int j = 6; j >= 0; j-- ) {
-         ss1<<DTThDigiItr->position(j);
-	 ss2<<DTThDigiItr->code(j) ;
-        }
-
-}
-
-        else{
-      for ( int j = 6; j >= 0; j-- ) {
-            ss1<<DTThDigiItr->position(j);
-            ss2<<DTThDigiItr->code(j) ;
-        }
-       }
-        bmtf_.thTheta.push_back(stoi(ss1.str())) ;
-         bmtf_.thCode.push_back(stoi(ss2.str()));
-        
+      for(int j=0; j<7; j++){
+        ss1<<DTThDigiItr->position(j);
+         ss2<<DTThDigiItr->code(j) ;
+      }
+      bmtf_.thTheta.push_back(stoi(ss1.str())) ;
+      bmtf_.thCode.push_back(stoi(ss2.str()));
 
       ithtr++;
 
     }
 }
-/*
-void TrUpS::L1AnalysisBMTF::SetMBTR(const edm::Handle<BMTrackContainer > BMTrackContainer, unsigned int maxMBTR)
-{
-  double pig=acos(-1);
-  BMTrackContainer::TrackContainer const *tr =  BMTrackContainer->getContainer();
-  int idttr = 0 ;
-  bmtf_.trmbSize = tr->size();
-  for ( BMTrackContainer::TrackContainer::const_iterator i
-	  = tr->begin(); i != tr->end(); ++i ) {
-        if((unsigned int)idttr>maxMBTR-1) continue;
-	bmtf_.trmbBx.push_back(  i->bx() );
-	bmtf_.trmbTag.push_back(  i->TrkTag() );
-	bmtf_.trmbQual.push_back(  i->hwQual() );
-	bmtf_.trmbPtPck.push_back(  i->hwPt() );
-	bmtf_.trmbPhiPck.push_back(  i->hwPhi() );
-	bmtf_.trmbEtaPck.push_back(  i->hwEta() );
 
-        int phi_local = i->hwPhi();//range: 0 < phi_local < 31
-        if(phi_local > 15) phi_local -= 32; //range: -16 < phi_local < 15
-        double phi_global = (phi_local*(pig/72.))+((pig/6.)*i->scNum());// + 12*i->scNum(); //range: -16 < phi_global < 147
-        if(phi_global < 0) phi_global+=2*pig; //range: 0 < phi_global < 147
-        if(phi_global > 2*pig) phi_global-=2*pig; //range: 0 < phi_global < 143
-	bmtf_.trmbPhiGlob.push_back(  phi_global );
-	bmtf_.trmbChPck.push_back(  i->hwSign() );
-	bmtf_.trmbWh.push_back(  i->whNum() );
-	bmtf_.trmbSc.push_back(  i->scNum() );
-	//bmtf_.trmbAddress.push_back( i->hwTrackAddress());
-
-	idttr++;
-  }
-
-}
-*/
-void TrUpS::L1AnalysisBMTF::SetMBTF(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx) {
+void TrUpS::L1AnalysisBMTF::SetBMTF(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx) {
 
   for (auto mu = coll.begin(bx); mu != coll.end(bx); ++mu) {
       //cout<<ctr<<endl;
@@ -153,8 +101,6 @@ void TrUpS::L1AnalysisBMTF::SetMBTF(const l1t::RegionalMuonCandBxCollection& col
       bmtf_.bmtfch.push_back(mu->hwSign());
       bmtf_.bmtfbx.push_back(bx);
       bmtf_.bmtfprocessor.push_back(mu->processor());
-      bmtf_.bmtfFineBit.push_back(mu->hwHF());
-
      // bmtf_.bmtftrAddress.push_back(mu->hwTrackAddress());
       std::map<int, int>  trAdd;
       trAdd = mu->trackAddress();
@@ -171,31 +117,4 @@ void TrUpS::L1AnalysisBMTF::SetMBTF(const l1t::RegionalMuonCandBxCollection& col
 }
 
 
-void TrUpS::L1AnalysisBMTF::SetMBTR(const l1t::RegionalMuonCandBxCollection& coll, int& ctr, int bx) {
 
-  for (auto mu = coll.begin(bx); mu != coll.end(bx); ++mu) {
-      //cout<<ctr<<endl;
-      ctr++;
-      bmtf_.trmbPt.push_back(mu->hwPt());
-      bmtf_.trmbEta.push_back(mu->hwEta());
-      bmtf_.trmbPhi.push_back(mu->hwPhi());
-      bmtf_.trmbqual.push_back(mu->hwQual());
-      bmtf_.trmbch.push_back(mu->hwSign());
-      bmtf_.trmbbx.push_back(bx);
-      bmtf_.trmbprocessor.push_back(mu->processor());
-      bmtf_.trmbFineBit.push_back(mu->hwHF());
-
-    // bmtf_.bmtftrAddress.push_back(mu->hwTrackAddress());
-       std::map<int, int>  trAdd;
-      trAdd = mu->trackAddress();
-      int wheel = pow(-1,trAdd[0]) * trAdd[1];
-      bmtf_.trmbwh.push_back(wheel);
-      bmtf_.trmbtrAddress.push_back(trAdd[2]);
-      bmtf_.trmbtrAddress.push_back(trAdd[3]);
-      bmtf_.trmbtrAddress.push_back(trAdd[4]);
-      bmtf_.trmbtrAddress.push_back(trAdd[5]);
-
-
-    }
-    if(bx == 2)bmtf_.trmbSize = ctr;
-}
