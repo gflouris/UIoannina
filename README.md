@@ -8,13 +8,11 @@ https://twiki.cern.ch/twiki/bin/view/CMSPublic/TrUpS
 
 Set-up enviroment:
 
-cmsrel CMSSW_8_0_0_pre6
+cmsrel CMSSW_8_0_2
 
 cd CMSSW_8_0_0_pre6/src
 
 cmsenv
-
-git cms-addpkg DataFormats/L1TMuon
 
 git clone https://github.com/gflouris/UIoannina/
 
