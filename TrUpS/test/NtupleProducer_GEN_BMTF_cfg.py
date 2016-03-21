@@ -5,7 +5,7 @@ from UIoannina.TrUpS.Ntuple_MC_cfg import *
 
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(500)
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
 process.source = cms.Source ("PoolSource",
                              fileNames = cms.untracked.vstring(
 'file:///afs/cern.ch/work/g/gflouris/TriggerUpgrade/CMSSW_8_0_0_pre6/src/L1Trigger/L1TMuonBarrel/test/l1tbmtf_mc_etam08p08_pt115120.root'
@@ -15,11 +15,18 @@ process.source = cms.Source ("PoolSource",
 
 
 #############L1 Trigger Block##################
-process.load("Configuration.StandardSequences.RawToDigi_Data_cff")
 process.load("UIoannina.TrUpS.L1Producer_cfi")
 
+process.L1TProducerEmulator = process.L1TProducer.clone(
+	   bmtfOutputDigis = cms.InputTag("simBmtfDigis:BMTF"),
+	   bmtfInputPhDigis = cms.InputTag("simDtTriggerPrimitiveDigis"),
+       bmtfInputThDigis = cms.InputTag("simDtTriggerPrimitiveDigis"),
+
+)
+
+
 process.p = cms.Path(
-    process.L1TProducer    
+    process.L1TProducerEmulator    
 )
 
 process.load("UIoannina.TrUpS.GENProducer_cfi")

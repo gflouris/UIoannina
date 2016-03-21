@@ -43,10 +43,12 @@ iEvent.getByLabel("genParticles", genParticles);
 for(reco::GenParticleCollection::const_iterator ig = genParticles->begin(); ig!= genParticles->end(); ++ig) {
 
    if(ig->pdgId()==13 || ig->pdgId()==-13){
-   gen_.genPt_Mu.push_back(ig->pt());
-   gen_.genEta_Mu.push_back(ig->eta());
-   gen_.genStatus_Mu.push_back(ig->status());
-   gen_.genPhi_Mu.push_back(ig->phi());
+      gen_.genPt_Mu.push_back(ig->pt());
+      gen_.genEta_Mu.push_back(ig->eta());
+      gen_.genStatus_Mu.push_back(ig->status());
+      gen_.genPhi_Mu.push_back(ig->phi());
+      gen_.genQ_Mu.push_back(ig->charge());
+      gen_.genP4_Mu.push_back(ig->p4());
    indx++;
    }
 } 
@@ -57,6 +59,10 @@ if(gen_.gen_muons == 0){
    gen_.genEta_Mu.push_back(-100);
    gen_.genStatus_Mu.push_back(-100);
    gen_.genPhi_Mu.push_back(-100);
+   gen_.genQ_Mu.push_back(-100);
+   LorentzVector p(0,0,0,0);
+   gen_.genP4_Mu.push_back(p);
+
 }
  
 }
