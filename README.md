@@ -10,7 +10,7 @@ Set-up enviroment:
 
 cmsrel CMSSW_8_0_2
 
-cd CMSSW_8_0_0_pre6/src
+cd CMSSW_8_0_2/src
 
 cmsenv
 
@@ -22,19 +22,19 @@ scram b
 
 Create Ntuples:
 
-CMSSW_8_0_0_pre6/src/UIoannina/TrUpS/test
+CMSSW_8_0_2/src/UIoannina/TrUpS/test
 
 =======================================================
 
 Create patterns in XML format:
 
-CMSSW_8_0_0_pre6/src/UIoannina/TrUpS/macros/root_to_xml
+CMSSW_8_0_2/src/UIoannina/TrUpS/macros/root_to_xml
 
 =======================================================
 
 Run hardware tests:
 
-CMSSW_8_0_0_pre6/src/UIoannina/TrUpS/macros/benchtest
+CMSSW_8_0_2/src/UIoannina/TrUpS/macros/benchtest
 
 
 
