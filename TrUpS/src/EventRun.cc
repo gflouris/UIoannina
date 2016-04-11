@@ -30,9 +30,16 @@ TrUpS::EventRun::~EventRun()
 void TrUpS::EventRun::SetEvr(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
-edm::Handle<std::vector<reco::Vertex> > vertex;
-iEvent.getByLabel(edm::InputTag("offlinePrimaryVertices"), vertex);
+//edm::Handle<std::vector<reco::Vertex> > vertex;
+//iEvent.getByLabel(edm::InputTag("offlinePrimaryVertices"), vertex);
 
-evr_.pvertex = vertex->size();
+
+//evr_.pvertex = vertex->size();
+evr_.run     = iEvent.id().run();
+evr_.event   = iEvent.id().event();
+evr_.lumi    = iEvent.luminosityBlock();
+evr_.bunch   = iEvent.bunchCrossing();
+
+
 
 }

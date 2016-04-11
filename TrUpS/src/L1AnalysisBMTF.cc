@@ -96,6 +96,7 @@ void TrUpS::L1AnalysisBMTF::SetBMTF(const l1t::RegionalMuonCandBxCollection& col
       ctr++;
       bmtf_.bmtfPt.push_back(mu->hwPt());
       bmtf_.bmtfEta.push_back(mu->hwEta());
+      bmtf_.bmtfFineBit.push_back(mu->hwHF());
       bmtf_.bmtfPhi.push_back(mu->hwPhi());
       bmtf_.bmtfqual.push_back(mu->hwQual());
       bmtf_.bmtfch.push_back(mu->hwSign());

@@ -22,10 +22,18 @@ namespace TrUpS
     
     void Reset()
     {
-    pvertex=0;
+    pvertex=-1;
+    run=-1;
+    event=-1;
+    lumi=-1;
+    bunch=-1;
     }
 
     int  pvertex;
+    int  run;
+    int  event;
+    int  lumi;
+    int  bunch;
 
 
   }; 
