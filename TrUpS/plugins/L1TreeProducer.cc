@@ -157,9 +157,13 @@ unsigned int max = 50;
   int ctr = 0;
   edm::Handle<l1t::RegionalMuonCandBxCollection> mycoll;
   iEvent.getByToken(bmtfOutputTag_,mycoll);
+  //const l1t::RegionalMuonCandBxCollection& coll = *mycoll;
   if (mycoll.isValid()) {
-        for(int i=-2; i<3; i++)
-            l1bmtf->SetBMTF(*mycoll,ctr,  i);
+        int firstbx = (*mycoll).getFirstBX();
+        int lastbx  = (*mycoll).getLastBX() + 1;
+        //cout<<firstbx<<"\t"<<lastbx<<endl;
+        for(int i=firstbx; i<lastbx; i++)
+            l1bmtf->SetBMTF(*mycoll, ctr, i);
   }
   else {
       edm::LogInfo("L1Prompt") << "can't find L1MuMBTrackContainer";
