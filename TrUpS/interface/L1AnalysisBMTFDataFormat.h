@@ -32,7 +32,7 @@ namespace TrUpS
     phY.clear();
     phBxRAW.clear();
     phTs2Tag.clear();
-
+    phRpcBit.clear();
 
     thSize = 0;
 
@@ -73,7 +73,7 @@ namespace TrUpS
     std::vector<float>  phY;
     std::vector<int>  phBxRAW;
     std::vector<int>  phTs2Tag;
-
+    std::vector<int>  phRpcBit;
 
     int thSize;
     std::vector<int>   thBx;

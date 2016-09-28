@@ -44,6 +44,7 @@ void TrUpS::L1AnalysisBMTF::SetDTPH(const edm::Handle<L1MuDTChambPhContainer > L
       bmtf_.phCode.push_back   (  DTPhDigiItr->code()  );
       bmtf_.phX.push_back      (  DTPhDigiItr->scNum() );
       bmtf_.phY.push_back      (  DTPhDigiItr->stNum()+4*(DTPhDigiItr->whNum()+2) );
+      bmtf_.phRpcBit.push_back      (  DTPhDigiItr->RpcBit() );
 
       iphtr++;
     }

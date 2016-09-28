@@ -4,4 +4,5 @@
 <class name="TrUpS::L1AnalysisBMTFDataFormat"/>
 <class name="TrUpS::L1AnalysisDTTFDataFormat"/>
 <class name="TrUpS::EventRunDataFormat"/>
+<class name="TrUpS::L1AnalysisTwinMuxDataFormat"/>
 </lcgdict>
