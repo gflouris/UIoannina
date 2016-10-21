@@ -301,7 +301,7 @@ dict_all = {'tree_event':'-1', 'nmuons':'-1',
 
 
 def Init_dict_all():
-  print "Init Dictionary\n"
+  #print "Init Dictionary\n"
   sectors = ("left","own","right")
   for j in range(-2,3) :
     for i in range(0, 3) :

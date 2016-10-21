@@ -18,7 +18,7 @@ def rw_ntuple( min_i, max_i, infile, out_tree_emu, out_tree_mp7 ):
 
 
 	#Read L1Tree
-	dir=infile.Get("L1TProducer")
+	dir=infile.Get("L1TProducerEmulator")
 	read_tree=dir.Get("L1Tree")
 	leaves = read_tree.GetListOfLeaves()
 	# define dynamically a python class containing root Leaves objects
@@ -153,8 +153,8 @@ def rw_ntuple( min_i, max_i, infile, out_tree_emu, out_tree_mp7 ):
 				str_sector = "left"
                                 #str_sector = "right"
 			#if ( phBxRAW == 0 and phTs2Tag==0 and phWh==0 ):
-			if ( iev == 95 or iev == 96) :
-			  print "own = "+str(own_sector)+"   sect = "+str(phSe)+"  phi = "+str(phAng)
+			#if ( iev == 95 or iev == 96) :
+			 # print "own = "+str(own_sector)+"   sect = "+str(phSe)+"  phi = "+str(phAng)
 
 			if ( phBxRAW == 0 and phTs2Tag==0 ):                                                    
 				fill_bool = True

@@ -8,8 +8,8 @@ from libs.Write_txt import *
 from libs import xml_writer
 from ROOT import *
 
-fileName="../../test/Ntuple_l1tbmtf_mc_etam08p08_pt115120_etahitsrev.root"
-name_of_xml="./output_xml/test_pt115_120_etam08p08_3.xml"
+fileName="/afs/cern.ch/work/g/gflouris/TriggerUpgrade/Development/BMTF/Emulator_Unpacker/CMSSW_8_0_7/src/UIoannina/TrUpS/test/Ntuple_l1tbmtf_mc_etam08p08_pt115120_etahitsrev.root"
+name_of_xml="./output_xml/test_mc.xml"
 
 
 infile=TFile(fileName)
@@ -38,7 +38,7 @@ if ( VF.txt_output ) :
 #	max_i = ((i+1) * 100-1)
 
 xml_writer.output_file =  open(name_of_xml, 'w') 
-rw_ntuple( 0, 100, infile, out_tree_emu, out_tree_mp7 )
+rw_ntuple( 0, 1000, infile, out_tree_emu, out_tree_mp7 )
 xml_writer.output_file.write(xml_writer.etree.tostring(xml_writer.doc, pretty_print = True))
 xml_writer.output_file.close()
 #	xml_writer.output_file.close()
