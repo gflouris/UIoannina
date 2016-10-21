@@ -78,8 +78,8 @@ void TrUpS::L1AnalysisBMTF::SetDTTH(const edm::Handle<L1MuDTChambThContainer > L
       ss1<<"9"; ss2<<"9";
 
       for(int j=0; j<7; j++){
-        ss1<<DTThDigiItr->position(j);
-         ss2<<DTThDigiItr->code(j) ;
+        ss1<<DTThDigiItr->position(6-j);
+         ss2<<DTThDigiItr->code(6-j) ;
       }
       bmtf_.thTheta.push_back(stoi(ss1.str())) ;
       bmtf_.thCode.push_back(stoi(ss2.str()));
