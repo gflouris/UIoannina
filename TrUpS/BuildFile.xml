@@ -43,4 +43,9 @@
 <use name="PhysicsTools/Utilities"/>
 <use name="HLTrigger/HLTcore"/>
 <use name="DataFormats/L1TMuon"/>
+<use   name="DataFormats/RPCDigi"/>
+<use   name="CondFormats/RPCObjects"/>
+<use   name="L1Trigger/RPCTrigger"/>
+<use   name="Geometry/RPCGeometry"/>
+<use   name="EventFilter/RPCRawToDigi"/>
 
